@@ -34,6 +34,8 @@ For example, it is useful when you want to change the response slightly by URL q
 /dynamic/foo.html.js
 
 ```js
+var url = require("url");
+
 module.exports = function(request, response){
   var requestUrl = url.parse(request.url, true);
   var page = parseInt(requestUrl.query.page, 10)
