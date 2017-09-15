@@ -31,7 +31,7 @@ You can specify the document root dir by `d` option, also the port by `p` option
 
 For example, it is useful when you want to change the response slightly by URL query. If you want be `/dynamic/foo.html` page dynamic, make  `/dynamic/foo.html.js`.
 
-/foo/bar.html.js
+/dynamic/foo.html.js
 
 ```js
 module.exports = function(request, response){
