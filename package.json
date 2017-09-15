@@ -1,6 +1,6 @@
 {
   "name": "simple-dynamic-server",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/gomo/simple-dynamic-server#readme",
   "dependencies": {
     "optimist": "^0.6.1"
+  },
+  "bin": {
+    "simple-dynamic-server": "node ./index.js"
   }
 }
