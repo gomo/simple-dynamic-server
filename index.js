@@ -55,7 +55,7 @@ http.createServer(function(request, response) {
 
       if(!response.finished){
         if(func){
-          func.process(request, response)
+          func(request, response)
         } else {
           header["Content-Type"] = "text/plain";
           response.writeHead(404, header);
