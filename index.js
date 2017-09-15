@@ -1,9 +1,12 @@
 var http = require("http"),
 url = require("url"),
 path = require("path"),
-fs = require("fs"),
-targetDir = process.argv[2] || './',
-port = process.argv[3] || 8888;
+fs = require("fs");
+
+var argv = require('optimist')
+  .default({ d : './', p : 8888 })
+  .argv
+  ;
 
 
 
@@ -12,7 +15,7 @@ function send(path, response){
   console.log(new Date().toLocaleString() + " " + path + " " + response.statusCode)
 }
 
-targetDir = path.join(process.cwd(), targetDir)
+targetDir = path.join(process.cwd(), argv.d)
  
 http.createServer(function(request, response) {
   var header = {
@@ -62,6 +65,6 @@ http.createServer(function(request, response) {
       }
     }
   })
-}).listen(parseInt(port, 10));
+}).listen(parseInt(argv.p, 10));
 
-console.log(new Date().toLocaleString() + " Server running at http://localhost:" + port + " in " + targetDir);
+console.log(new Date().toLocaleString() + " Server running at http://localhost:" + argv.p + " in " + targetDir);
