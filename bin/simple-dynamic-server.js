@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var http = require("http"),
 url = require("url"),
 path = require("path"),
@@ -13,6 +15,15 @@ var argv = require('optimist')
 function send(path, response){
   response.end();
   console.log(new Date().toLocaleString() + " " + path + " " + response.statusCode)
+}
+
+function responseError(error, path, header, response){
+  header["Content-Type"] = "text/plain";
+  response.writeHead(500, header);
+  response.write(
+    error.stack
+  );
+  send(path, response)
 }
 
 targetDir = path.join(process.cwd(), argv.d)
@@ -49,13 +60,17 @@ http.createServer(function(request, response) {
           response.write("404 Not Found\n");
           send(urlPath, response)
         } else {
-          throw e;
+          responseError(e, urlPath, header, response)
         }
       }
 
       if(!response.finished){
         if(func){
-          func(request, response)
+          try{
+            func(request, response)
+          } catch (e) {
+            responseError(e, urlPath, header, response)
+          }
         } else {
           header["Content-Type"] = "text/plain";
           response.writeHead(404, header);
